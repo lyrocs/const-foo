@@ -40,12 +40,12 @@ jobs:
 
             # Reconstruit l'image Docker du blog sans utiliser le cache pour s'assurer que les nouveaux fichiers sont pris en compte
             echo "📦 Building the Docker image..."
-            docker-compose build --no-cache const-foo
+            docker compose build --no-cache const-foo
 
             # Redémarre le conteneur du blog pour appliquer les changements
             # --force-recreate garantit que le conteneur est recréé avec la nouvelle image
             echo "🚀 Restarting the container..."
-            docker-compose up -d --force-recreate const-foo
+            docker compose up -d --force-recreate const-foo
 
             # (Optionnel) Nettoie les anciennes images Docker non utilisées
             echo "🧹 Pruning old Docker images..."
