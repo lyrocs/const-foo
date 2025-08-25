@@ -37,7 +37,7 @@ COPY --from=builder /app/build .
 
 # (Optionnel mais fortement recommandé pour Docusaurus)
 # Copier une configuration Nginx personnalisée pour gérer le routage des SPA
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Exposer le port 80 pour permettre les connexions entrantes
 EXPOSE 80
