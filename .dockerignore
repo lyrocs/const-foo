@@ -1,0 +1,20 @@
+# .dockerignore
+
+# Dépendances locales (seront installées dans le conteneur)
+node_modules
+
+# Fichiers de build (seront générés dans le conteneur)
+build
+.docusaurus
+
+# Fichiers de configuration de Docker
+Dockerfile
+.dockerignore
+nginx.conf
+
+# Fichiers Git
+.git
+.gitignore
+
+# Fichiers de logs
+*.log
