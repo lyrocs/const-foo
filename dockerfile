@@ -18,7 +18,7 @@ COPY . .
 
 # Lancer la commande de build de Docusaurus
 # Cela va générer le site statique dans le dossier /app/build
-RUN npm run build
+RUN npm run docs:build
 
 
 # #############################################################################
@@ -33,7 +33,7 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
 # Copier les fichiers statiques générés depuis l'étape "builder"
-COPY --from=builder /app/build .
+COPY --from=builder /app/src/.vuepress/dist .
 
 # (Optionnel mais fortement recommandé pour Docusaurus)
 # Copier une configuration Nginx personnalisée pour gérer le routage des SPA
