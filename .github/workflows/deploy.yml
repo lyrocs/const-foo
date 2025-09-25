@@ -1,0 +1,54 @@
+# .github/workflows/deploy.yml
+
+name: Deploy to VPS
+
+# Se déclenche à chaque push sur la branche "main"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    # Utilise la dernière version d'Ubuntu pour l'environnement d'exécution
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1: Affiche un message de démarrage
+      - name: Start deployment
+        run: echo "🚀 Starting deployment to VPS..."
+
+      # Étape 2: Connexion SSH et exécution du script de déploiement
+      - name: SSH and Deploy
+        # Utilise une action populaire et fiable pour les commandes SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_SSH_HOST }}
+          username: ${{ secrets.VPS_SSH_USER }}
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          script: |
+            # Se déplace dans le répertoire de travail sur le VPS
+            cd ${{ secrets.WORK_DIR }}
+
+            # Récupère les dernières modifications depuis la branche main
+            echo "🚚 Pulling latest changes from main branch..."
+            git pull origin main
+
+            # Retour au répertoire global
+            echo "🚀 Returning to global directory..."
+            cd ..
+
+            # Reconstruit l'image Docker du blog sans utiliser le cache pour s'assurer que les nouveaux fichiers sont pris en compte
+            echo "📦 Building the Docker image..."
+            docker compose build --no-cache const-foo
+
+            # Redémarre le conteneur du blog pour appliquer les changements
+            # --force-recreate garantit que le conteneur est recréé avec la nouvelle image
+            echo "🚀 Restarting the container..."
+            docker compose up -d --force-recreate const-foo
+
+            # (Optionnel) Nettoie les anciennes images Docker non utilisées
+            echo "🧹 Pruning old Docker images..."
+            docker image prune -f
+
+            echo "✅ Deployment finished successfully!"
