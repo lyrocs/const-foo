@@ -1,10 +1,11 @@
 ---
-title: JavaScript
+title: TypeScript
 date: 2025-09-25
 index: false
-icon: laptop-code
+icon: at
+comment: false
 category:
-  - JavaScript
+  - TypeScript
 ---
 
 <Catalog />

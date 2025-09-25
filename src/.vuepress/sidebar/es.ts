@@ -3,24 +3,26 @@ import { sidebar } from "vuepress-theme-hope";
 export const esSidebar = sidebar({
   "/es/": [
     "",
-    "portfolio",
     {
-      text: "Demo",
+      text: "JavaScript",
       icon: "laptop-code",
-      prefix: "demo/",
-      link: "demo/",
+      prefix: "js/",
+      link: "js/",
       children: "structure",
     },
     {
-      text: "Docs",
-      icon: "book",
-      prefix: "guide/",
+      text: "TypeScript",
+      icon: "laptop-code",
+      prefix: "ts/",
+      link: "ts/",
       children: "structure",
     },
     {
-      text: "Slides",
-      icon: "person-chalkboard",
-      link: "https://ecosystem.vuejs.press/es/plugins/markdown/revealjs/demo.html",
-    },
+      text: "Rust",
+      icon: "laptop-code",
+      prefix: "rust/",
+      link: "rust/",
+      children: "structure",
+    }
   ],
 });

@@ -7,14 +7,14 @@ export default defineUserConfig({
 
   locales: {
     "/": {
-      lang: "en-US",
-      title: "Docs Demo",
-      description: "A docs demo for vuepress-theme-hope",
+      lang: "fr-FR",
+      title: "Const-foo",
+      description: "A place to learn about JavaScript, TypeScript, and Rust, from core concepts to frameworks and tools used in web development.",
     },
     "/es/": {
       lang: "es-ES",
-      title: "Documentación",
-      description: "Documentación de vuepress-theme-hope",
+      title: "Const-foo",
+      description: "A place to learn about JavaScript, TypeScript, and Rust, from core concepts to frameworks and tools used in web development.",
     },
   },
 

@@ -44,13 +44,13 @@ export default hopeTheme({
       // sidebar
       sidebar: esSidebar,
 
-      footer: "默认页脚",
+      footer: "Footer",
 
       displayFooter: true,
 
       // page meta
       metaLocales: {
-        editLink: "在 GitHub 上编辑此页",
+        editLink: "Edit this page on GitHub",
       },
     },
   },
