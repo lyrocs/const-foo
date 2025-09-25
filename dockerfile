@@ -3,22 +3,25 @@
 # #############################################################################
 FROM node:20-alpine AS builder
 
+# Install pnpm
+RUN npm install -g pnpm
+
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
 # Copier les fichiers de dépendances et les installer
 # On copie ces fichiers en premier pour profiter de la mise en cache de Docker.
 # Si ces fichiers не changent pas, Docker ne réinstallera pas les dépendances.
-COPY package.json package-lock.json* ./
-# Utiliser 'npm ci' pour une installation propre et déterministe en production
-RUN npm ci
+COPY package.json pnpm-lock.yaml* ./
+# Utiliser 'pnpm install' pour une installation propre et déterministe en production
+RUN pnpm install --frozen-lockfile
 
 # Copier le reste du code source de l'application
 COPY . .
 
 # Lancer la commande de build de Docusaurus
 # Cela va générer le site statique dans le dossier /app/build
-RUN npm run docs:build
+RUN pnpm run docs:build
 
 
 # #############################################################################
