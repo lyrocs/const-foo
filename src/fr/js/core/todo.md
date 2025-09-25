@@ -1,10 +1,10 @@
 ---
 # This is the title of the article
-title: Core TS
+title: TODO
 # This is the icon of the page
-icon: atom
+# icon: atom
 # This control sidebar order
-order: 1
+order: 3
 # Set author
 author: Lyrocs
 # Set writing time
@@ -27,8 +27,14 @@ footer: Footer content for test
 copyright: No Copyright
 ---
 
-<!-- Content before `more` comment is regarded as page excerpt. -->
+## Quelle est la principale différence entre `null` et `undefined` ?
 
-<!-- more -->
+## Qu'est-ce que le 'Event Loop' (boucle d'événements) ?
 
-## TODO write this article
+## Qu'est-ce que l'héritage prototypal ('prototypal inheritance') en JavaScript ?
+
+## Qu'est-ce que le 'debouncing' ?
+
+## Qu'est-ce que le 'throttling' ?
+
+## Qu'est-ce que le 'Shadow DOM' ?

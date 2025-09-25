@@ -1,6 +1,6 @@
 import { sidebar } from "vuepress-theme-hope";
 
-export const enSidebar = sidebar({
+export const frSidebar = sidebar({
   "/fr/": [
     "",
     // "portfolio",
@@ -20,14 +20,14 @@ export const enSidebar = sidebar({
     },
     {
       text: "TypeScript",
-      icon: "laptop-code",
+      icon: "at",
       prefix: "ts/",
       link: "ts/",
       children: "structure",
     },
     {
       text: "Rust",
-      icon: "laptop-code",
+      icon: "rupee-sign",
       prefix: "rust/",
       link: "rust/",
       children: "structure",

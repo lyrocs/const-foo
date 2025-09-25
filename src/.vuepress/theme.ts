@@ -1,7 +1,7 @@
 import { hopeTheme } from "vuepress-theme-hope";
 
-import { enNavbar, esNavbar } from "./navbar/index.js";
-import { enSidebar, esSidebar } from "./sidebar/index.js";
+import { frNavbar, esNavbar } from "./navbar/index.js";
+import { frSidebar, esSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
   hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
@@ -20,10 +20,10 @@ export default hopeTheme({
   locales: {
     "/": {
       // navbar
-      navbar: enNavbar,
+      navbar: frNavbar,
 
       // sidebar
-      sidebar: enSidebar,
+      sidebar: frSidebar,
 
       footer: "Default footer",
 

@@ -1,8 +1,8 @@
 ---
 # This is the title of the article
-title: Core TS
+title: TODO
 # This is the icon of the page
-icon: atom
+# icon: atom
 # This control sidebar order
 order: 1
 # Set author
@@ -11,10 +11,10 @@ author: Lyrocs
 date: 2025-09-25
 # A page can have multiple categories
 category:
-  - JavaScript
+  - Rust
 # A page can have multiple tags
 tag:
-  - JavaScript
+  - Rust
   - Guide
 # this page is sticky in article list
 sticky: true
@@ -27,8 +27,12 @@ footer: Footer content for test
 copyright: No Copyright
 ---
 
-<!-- Content before `more` comment is regarded as page excerpt. -->
+## `Arc<Mutex<T>>` : Le Duo Gagnant de la Concurrence en Rust
 
-<!-- more -->
+## tokio::spawn : Lancez des Tâches Asynchrones Sans Crainte
 
-## TODO write this article
+## `Result` et `Option` : Arrêtez de Penser en Termes de null
+
+## Les "Traits" : Comment Rust Réalise le Polymorphisme
+
+## Les Durées de Vie ('Lifetimes') : Comprendre le Super-pouvoir du Compilateur
