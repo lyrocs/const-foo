@@ -6,6 +6,7 @@ export const frNavbar = navbar([
   "/fr/js/",
   "/fr/ts/",
   "/fr/rust/",
+  "/fr/tools/",
   // {
   //   text: "Guide",
   //   icon: "lightbulb",

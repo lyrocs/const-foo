@@ -31,6 +31,13 @@ export const frSidebar = sidebar({
       prefix: "rust/",
       link: "rust/",
       children: "structure",
+    },
+    {
+      text: "Tools",
+      icon: "toolbox",
+      prefix: "tools/",
+      link: "tools/",
+      children: "structure",
     }
   ],
 });
