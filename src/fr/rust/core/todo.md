@@ -4,7 +4,7 @@ title: TODO
 # This is the icon of the page
 # icon: atom
 # This control sidebar order
-order: 1
+order: 3
 # Set author
 author: Lyrocs
 # Set writing time
