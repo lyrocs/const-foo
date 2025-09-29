@@ -358,3 +358,11 @@ Le Shadow DOM c'est ton **sanctuaire privé** dans la page web :
 > **Règle d'or** : Utilise le Shadow DOM quand tu veux créer des composants complètement **autonomes et réutilisables**.
 
 C'est l'outil parfait pour créer des composants qui fonctionnent **partout**, peu importe le chaos CSS environnant !
+
+## Exemple complet en action
+
+Tu veux voir tout ça en pratique ? J'ai préparé un **exemple interactif complet** qui montre l'encapsulation CSS, les slots, et les custom properties en action :
+
+👉 **[Voir l'exemple Shadow DOM sur JSFiddle](https://jsfiddle.net/7amxtwnf/3/)**
+
+Tu peux modifier le code directement et voir les résultats en temps réel. C'est parfait pour expérimenter et comprendre comment tout s'articule !
