@@ -1,33 +1,4 @@
----
-# This is the title of the article
-title: Spawn
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 3
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-26
-# A page can have multiple categories
-category:
-  - Rust
-# A page can have multiple tags
-tag:
-  - Rust
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
-
-# tokio::spawn : Lancez des Tâches Asynchrones Sans Crainte
+# tokio::spawn
 
 Dans l'écosystème Rust, Tokio s'impose comme le runtime asynchrone de référence pour les applications réseau hautes performances. Au cœur de cette puissance se trouve `tokio::spawn`, une fonction apparemment simple qui révolutionne la façon dont nous gérons la concurrence asynchrone. Cet article explore comment `tokio::spawn` permet d'exécuter des tâches légères en arrière-plan sans jamais bloquer le thread principal.
 

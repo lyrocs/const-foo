@@ -1,33 +1,4 @@
----
-# This is the title of the article
-title: Option
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 1
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-25
-# A page can have multiple categories
-category:
-  - Rust
-# A page can have multiple tags
-tag:
-  - Rust
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
-
-# Result et Option : Arrêtez de Penser en Termes de `null`
+# Result et Option
 
 Si vous venez d'un langage comme Java, C\# ou JavaScript, vous connaissez sans doute la valeur `null` (ou `undefined`). Son inventeur, Tony Hoare, l'a lui-même qualifiée d'"erreur à un milliard de dollars" car elle est la source d'innombrables bugs et crashs inattendus (`NullPointerException`, `Cannot read properties of undefined`, etc.).
 

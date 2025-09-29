@@ -1,111 +1,135 @@
----
-# This is the title of the article
-title: Event loop
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 5
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-27
-# A page can have multiple categories
-category:
-  - JavaScript
-# A page can have multiple tags
-tag:
-  - JavaScript
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
+# Event loop
 
-# La Boucle d'Événements (Event Loop) : Le Secret de l'Asynchronisme en JavaScript
+T'as déjà eu ce moment bizarre où tu te demandes pourquoi ton `console.log` s'affiche dans le mauvais ordre ? Ou pourquoi ton code asynchrone fait n'importe quoi ? Bienvenue dans le monde merveilleux de l'**event loop**.
 
-Le JavaScript est un langage **mono-thread**, ce qui signifie qu'il ne peut faire qu'une seule chose à la fois. Pourtant, il est capable de gérer des opérations longues (comme des appels réseau ou des minuteurs) sans jamais bloquer l'interface utilisateur. Comment est-ce possible ? Le secret réside dans un mécanisme appelé la **Boucle d'Événements (Event Loop)**.
+## C'est quoi ce bordel ?
 
----
+Imagine que JavaScript c'est un **restaurant avec un seul serveur**. Ouais, un seul. Pas de backup, pas d'équipe. Ce serveur doit prendre les commandes, les apporter en cuisine, ramener les plats... tout ça **un truc à la fois**.
 
-## Le Principe : Ne Jamais Attendre
+C'est ça JavaScript : **single-threaded**. Une seule file d'exécution. Mais alors comment il gère plusieurs trucs en même temps ? Spoiler : il gère pas vraiment.
 
-Pensez à un chef cuisinier 🧑‍🍳 dans une petite cuisine. Il ne peut faire qu'une seule tâche à la fois (hacher des légumes).
+## La stack, la queue et le loop
 
-- **Approche synchrone (bloquante)** : S'il met un plat au four pour 30 minutes, il attend devant le four sans rien faire. Toute la cuisine est à l'arrêt.
-- **Approche asynchrone (non-bloquante)** : Il met le plat au four, **lance un minuteur (une Web API)**, et continue de hacher d'autres légumes. Quand le minuteur sonne, il s'occupe du plat.
+Trois concepts que tu vas kiffer :
 
-La Boucle d'Événements est le système qui permet au "chef" JavaScript de ne jamais attendre.
-
----
-
-## Les 4 Acteurs Clés
-
-Ce mécanisme repose sur quatre composants :
-
-1.  **La Pile d'Appels (Call Stack)** : C'est là où les fonctions en cours d'exécution sont empilées. C'est la liste de tâches "à faire maintenant".
-2.  **Les API du Navigateur (Web APIs)** : Ce sont des fonctionnalités fournies par le navigateur (et non par le moteur JS lui-même) pour gérer les opérations longues, comme `setTimeout`, `fetch` (pour les requêtes réseau), ou les écouteurs d'événements (`addEventListener`).
-3.  **La File de Tâches (Task Queue ou Macrotask Queue)** : C'est une file d'attente où les callbacks des opérations terminées (comme la fonction de `setTimeout`) sont placés en attendant que la Pile d'Appels soit vide.
-4.  **La File de Microtâches (Microtask Queue)** : Une file d'attente spéciale avec une **plus haute priorité** que la Task Queue. Elle est utilisée pour les callbacks des `Promises` (`.then()`, `.catch()`, `.finally()`) et `async/await`.
-
----
-
-## Exemple de Code
-
-Analysons ce code classique pour voir la Boucle d'Événements en action :
+**La Call Stack** c'est ta liste de tâches immédiates. Tout ce qui doit être exécuté _maintenant_. C'est une pile (LIFO pour les intimes) : le dernier arrivé, premier servi.
 
 ```javascript
-console.log("A : Début du script"); // Synchrone
+function a() {
+  console.log("A");
+  b();
+}
+
+function b() {
+  console.log("B");
+}
+
+a();
+// Stack: a() → b() → console.log → ...
+```
+
+**La Task Queue** (ou callback queue), c'est la liste d'attente des trucs asynchrones. Genre les `setTimeout`, les événements DOM, les promesses... Ils patientent là, sagement.
+
+**L'Event Loop**, c'est le videur du club. Son boulot ? Checker en permanence : "La stack est vide ? Cool, je prends le prochain dans la queue."
+
+## Un exemple qui fait mal
+
+```javascript
+console.log("1");
 
 setTimeout(() => {
-  console.log("C : Fin du minuteur"); // Asynchrone (Macrotask)
+  console.log("2");
+}, 0);
+
+console.log("3");
+```
+
+Tu t'attends à `1, 2, 3` ? **Nope.** Tu vas avoir `1, 3, 2`.
+
+Pourquoi ? Parce que même avec un délai de `0ms`, le `setTimeout` va dans la **Task Queue**. L'event loop va d'abord finir tout ce qui est dans la stack (le `console.log('3')`), et _ensuite_ il ira chercher le callback du setTimeout.
+
+## Les Microtasks : le coupe-file VIP
+
+Les promesses, c'est pas n'importe qui. Elles ont leur propre queue : la **Microtask Queue**. Et cette queue a la **priorité absolue** sur la Task Queue.
+
+```javascript
+console.log("1");
+
+setTimeout(() => {
+  console.log("2");
 }, 0);
 
 Promise.resolve().then(() => {
-  console.log("D : Promesse résolue"); // Asynchrone (Microtask)
+  console.log("3");
 });
 
-console.log("B : Fin du script"); // Synchrone
+console.log("4");
 ```
 
-### L'Ordre d'Exécution
+Résultat : `1, 4, 3, 2`
 
-console.log('A') est ajouté à la Pile d'Appels et exécuté immédiatement.
+Le flow :
 
-Sortie : A : Début du script
+1. Stack vide ? Non, on exécute tout le code synchrone → `1`, `4`
+2. Stack vide ! Event loop check les _microtasks_ d'abord → `3`
+3. Microtasks vides ? Ok, on passe aux _tasks_ → `2`
 
-setTimeout est ajouté à la Pile. Le navigateur le prend en charge (Web API) et lance son minuteur de 0 ms. La fonction setTimeout est retirée de la Pile.
+La promesse **coupe la queue** du setTimeout. C'est le passe VIP du club.
 
-Promise.resolve().then() est ajouté à la Pile. La promesse se résout immédiatement. Son callback (() => console.log('D')) est placé dans la File de Microtâches. La fonction est retirée de la Pile.
+## Un piège classique dans une boucle
 
-console.log('B') est ajouté à la Pile et exécuté.
+```javascript
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => {
+    console.log(i);
+  }, 0);
+}
+```
 
-Sortie : B : Fin du script
+Tu penses voir `0, 1, 2` ? Tu vas avoir `3, 3, 3`.
 
-La Pile d'Appels est maintenant vide. La Boucle d'Événements regarde s'il y a des tâches à exécuter. Elle vérifie TOUJOURS la File de Microtâches en premier.
+Pourquoi ? Parce que `var` n'a pas de scope de bloc. Quand les setTimeout s'exécutent (après la boucle), `i` vaut déjà `3`.
 
-Le callback de la promesse est dans la File de Microtâches. Il est déplacé vers la Pile d'Appels et exécuté.
+La fix avec `let` :
 
-Sortie : D : Promesse résolue
+```javascript
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => {
+    console.log(i);
+  }, 0);
+}
+// 0, 1, 2 ✨
+```
 
-La Pile est de nouveau vide. La File de Microtâches est vide. La Boucle d'Événements regarde maintenant la File de Tâches.
+Chaque itération crée un nouveau scope avec `let`. Problème réglé.
 
-Le minuteur de setTimeout a terminé depuis longtemps. Son callback (() => console.log('C')) est dans la File de Tâches. Il est déplacé vers la Pile d'Appels et exécuté.
+## Async/Await : le sucre syntaxique
 
-Sortie : C : Fin du minuteur
+```javascript
+async function fetch() {
+  console.log("1");
 
-### Résultat Final dans la Console :
+  const result = await Promise.resolve("2");
+  console.log(result);
 
-A : Début du script
-B : Fin du script
-D : Promesse résolue
-C : Fin du minuteur
+  console.log("3");
+}
 
-## Conclusion
+console.log("0");
+fetch();
+console.log("4");
+```
 
-La Boucle d'Événements est le cœur du modèle de concurrence de JavaScript. En orchestrant ces différentes files d'attente, elle permet à un seul thread de gérer de multiples opérations de manière efficace et non-bloquante, ce qui est essentiel pour des applications web fluides et réactives.
+Output : `0, 1, 4, 2, 3`
+
+Le `await` met la fonction en pause. Tout ce qui est **après** le `await` devient une microtask. C'est comme si tu avais fait un `.then()`.
+
+## Le truc à retenir
+
+L'event loop, c'est pas sorcier :
+
+> **Stack vide ?** → Check les microtasks → Check les tasks → Repeat
+
+JavaScript fait semblant d'être asynchrone, mais en vrai il fait juste **très bien la queue** au Pôle Emploi. Un seul guichet, mais une organisation militaire.
+
+Maintenant t'as plus d'excuse pour tes bugs de timing. Go coder. 🚀

@@ -1,83 +1,184 @@
----
-# This is the title of the article
-title: Hoisting
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 2
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-25
-# A page can have multiple categories
-category:
-  - JavaScript
-# A page can have multiple tags
-tag:
-  - JavaScript
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
+# Hoisting
 
-## Comment fonctionne le 'hoisting' (hissage) avec `let` et `const` ?
+T'as déjà appelé une fonction **avant** de la déclarer et ça marche ? Ou utilisé une variable avant de la définir et tout plante ? Bienvenue dans le délire du **hoisting**.
 
-Le 'hoisting' (ou hissage) est un mécanisme de JavaScript où les déclarations de variables et de fonctions sont déplacées au sommet de leur portée (scope) avant l'exécution du code. Cependant, ce comportement diffère entre `var`, `let`, et `const`.
+## C'est quoi cette sorcellerie ?
 
-### Hoisting avec `var`
+Le hoisting, littéralement "hisser" en anglais, c'est quand JavaScript **remonte** tes déclarations en haut du scope avant d'exécuter ton code. Imagine que JS lit ton code deux fois :
 
-Avec `var`, seule la déclaration est hissée, pas l'initialisation. La variable est initialisée avec la valeur `undefined` par défaut.
+**Première lecture** : "Ok, je note toutes les déclarations que je vois"  
+**Deuxième lecture** : "Maintenant j'exécute le code"
+
+C'est comme si tu préparais une recette en sortant tous les ingrédients **avant** de commencer à cuisiner. Sauf que JavaScript fait ça tout seul, dans ton dos.
+
+## Les fonctions : le mode VIP
+
+Les **fonctions classiques** sont entièrement remontées. Tu peux les appeler n'importe où.
 
 ```javascript
-console.log(maVariable); // Affiche undefined
-var maVariable = 5;
-console.log(maVariable); // Affiche 5
+manger(); // ✅ Ça marche !
+
+function manger() {
+  console.log("Je bouffe un burger");
+}
 ```
 
-Ici, la déclaration `var maVariable` est hissée au sommet, mais son assignation `= 5` ne l'est pas. Le code est interprété comme ceci :
+JavaScript voit ton code comme ça :
 
 ```javascript
-var maVariable;
-console.log(maVariable); // undefined
-maVariable = 5;
-console.log(maVariable); // 5
+function manger() {
+  console.log("Je bouffe un burger");
+}
+
+manger(); // Logique maintenant
 ```
 
-### Hoisting avec `let` et `const`
-
-Les variables déclarées avec `let` et `const` sont également hissées, mais elles ne sont pas initialisées. Elles entrent dans ce qu'on appelle la **Zone Morte Temporelle** (Temporal Dead Zone - TDZ).
-
-Toute tentative d'accéder à une variable dans la TDZ avant sa déclaration résulte en une `ReferenceError`.
+Pratique, mais attention aux **function expressions** :
 
 ```javascript
-// console.log(monLet); // Lève une ReferenceError: Cannot access 'monLet' before initialization
+boire(); // ❌ TypeError: boire is not a function
 
-let monLet = 10;
-console.log(monLet); // Affiche 10
+var boire = function () {
+  console.log("Une bière fraîche");
+};
 ```
 
-La variable `monLet` est dans la TDZ depuis le début de sa portée (le scope du bloc) jusqu'à sa déclaration effective (`let monLet = 10;`).
-
-Le même comportement s'applique à `const` :
+Pourquoi ? Parce que seule la **déclaration** de `var boire` est remontée, pas l'assignation.
 
 ```javascript
-// console.log(maConst); // Lève une ReferenceError
+var boire; // Hoisted, mais vaut undefined
 
-const maConst = 20;
-console.log(maConst); // Affiche 20
+boire(); // undefined n'est pas une fonction, boom
+
+boire = function () {
+  console.log("Une bière fraîche");
+};
 ```
 
-### Résumé
+## Var : le bordel organisé
 
-| Déclaration | Hissée ? | Initialisée à `undefined` ? | Comportement                                                          |
-| :---------- | :------: | :-------------------------: | :-------------------------------------------------------------------- |
-| `var`       |   Oui    |             Oui             | Accessible avant la déclaration, sa valeur est `undefined`.           |
-| `let`       |   Oui    |             Non             | Non accessible avant la déclaration (TDZ), lève une `ReferenceError`. |
-| `const`     |   Oui    |             Non             | Non accessible avant la déclaration (TDZ), lève une `ReferenceError`. |
+Avec `var`, la déclaration est remontée mais l'**initialisation reste en place**.
+
+```javascript
+console.log(age); // undefined (pas d'erreur !)
+var age = 25;
+console.log(age); // 25
+```
+
+Ce que JS comprend :
+
+```javascript
+var age; // Déclaration remontée
+console.log(age); // undefined
+age = 25; // Initialisation
+console.log(age); // 25
+```
+
+C'est comme si tu réservais une place au resto, mais t'arrives pour commander plus tard. La place existe (undefined), elle est juste vide.
+
+## Let et Const : la Temporal Dead Zone
+
+Avec `let` et `const`, c'est **différent**. Techniquement ils sont aussi hoisted, mais dans une zone où tu peux pas y toucher : la **Temporal Dead Zone** (TDZ).
+
+```javascript
+console.log(nom); // ❌ ReferenceError: Cannot access 'nom' before initialization
+let nom = "Bob";
+```
+
+La TDZ c'est la période entre le début du scope et la ligne où tu déclares ta variable. Pendant ce temps, la variable existe dans les limbes mais t'y as pas accès.
+
+```javascript
+{
+  // TDZ commence ici ☠️
+  console.log(prenom); // ReferenceError
+  // TDZ continue...
+  let prenom = "Alice"; // TDZ se termine ici ✨
+  console.log(prenom); // 'Alice'
+}
+```
+
+C'est volontaire. Les créateurs de ES6 voulaient éviter le bordel du `var` où tu pouvais utiliser une variable avant de la déclarer.
+
+## Le piège vicieux
+
+```javascript
+var x = 10;
+
+function test() {
+  console.log(x); // undefined ??
+  var x = 20;
+}
+
+test();
+```
+
+Tu pensais voir `10` ? **Nope.** Tu vois `undefined`.
+
+Pourquoi ? Parce que le `var x` **à l'intérieur de la fonction** est remonté en haut du scope de la fonction. Ça masque le `x` global.
+
+```javascript
+var x = 10;
+
+function test() {
+  var x; // Hoisted ici
+  console.log(x); // undefined
+  x = 20;
+}
+```
+
+C'est le **shadowing** : la variable locale cache la globale.
+
+## Classes : pareil que let
+
+Les classes aussi ont une TDZ :
+
+```javascript
+const chat = new Animal(); // ❌ ReferenceError
+
+class Animal {
+  constructor() {
+    console.log("Miaou");
+  }
+}
+```
+
+Contrairement aux fonctions classiques, les classes doivent être déclarées **avant** d'être utilisées. Pas de passe-droit.
+
+## Import : toujours en premier
+
+Les `import` sont **automatiquement remontés** tout en haut du fichier, peu importe où tu les mets.
+
+```javascript
+console.log(addition(2, 3)); // ✅ Ça marche
+
+import { addition } from "./utils.js";
+```
+
+C'est pour ça que les imports sont **toujours exécutés en premier**, même si tu les fous en bas du fichier. JavaScript les remonte au sommet.
+
+## Le conseil
+
+> **Déclare toujours tes variables en haut du scope.** Ça évite les surprises et rend ton code lisible.
+
+Utilise `const` par défaut, `let` si t'as besoin de réassigner, et **oublie `var`**. Sérieux, c'est 2025, lâche le `var`.
+
+```javascript
+// ✅ Propre
+const MAX_USERS = 100;
+let count = 0;
+
+function increment() {
+  count++;
+}
+
+// ❌ Le chaos
+increment();
+
+var count = 0;
+
+function increment() {
+  count++;
+}
+```
+
+Le hoisting c'est pas une feature que tu dois utiliser, c'est un **comportement à comprendre** pour éviter les bugs chelous. Maintenant t'es armé. 💪

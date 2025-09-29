@@ -1,20 +1,4 @@
----
-title: Vite
-date: 2025-09-27
-icon: atom
-index: true
-comment: false
-breadcrumb: false
-pageInfo: false
-editLink: false
-lastUpdated: false
-prev: false
-next: false
-category:
-  - Tools
----
-
-# Vite : L'Outil de Build qui a Rendu le Développement Web Instantané
+# Vite
 
 Si vous avez touché au développement web frontend ces dernières années, vous avez sûrement entendu parler de **Vite** (prononcé /vit/, comme le mot français). Créé par Evan You, le créateur de Vue.js, Vite est devenu l'outil de build de choix pour des millions de développeurs, bien au-delà de l'écosystème Vue.
 

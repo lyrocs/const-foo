@@ -1,33 +1,4 @@
----
-# This is the title of the article
-title: Arc Mutex
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 2
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-26
-# A page can have multiple categories
-category:
-  - Rust
-# A page can have multiple tags
-tag:
-  - Rust
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
-
-# `Arc<Mutex<T>>` : Le Duo Gagnant de la Concurrence en Rust
+# `Arc<Mutex<T>>`
 
 La programmation concurrente est l'un des domaines où Rust brille le plus, grâce à son système de types qui garantit la sécurité mémoire sans compromis sur les performances. Au cœur de cette excellence se trouve un pattern fondamental : l'association d'`Arc` et `Mutex` pour partager des données modifiables entre threads. Cet article explore pourquoi cette combinaison est devenue le standard de facto pour la concurrence sûre en Rust.
 

@@ -4,16 +4,16 @@ import { frNavbar, esNavbar } from "./navbar/index.js";
 import { frSidebar, esSidebar } from "./sidebar/index.js";
 
 export default hopeTheme({
-  hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
+  hostname: "https://const-foo.lyrocs.ovh ",
 
   author: {
-    name: "Mr.Hope",
-    url: "https://mister-hope.com",
+    name: "Lyrocs",
+    url: "https://github.com/lyrocs",
   },
 
-  logo: "https://theme-hope-assets.vuejs.press/logo.svg",
+  logo: "https://const-foo.lyrocs.ovh/logo.svg",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "lyrocs/const-foo",
 
   docsDir: "src",
 
@@ -26,6 +26,8 @@ export default hopeTheme({
       sidebar: frSidebar,
 
       footer: "Default footer",
+      pageInfo: false,
+      editLink: false,
 
       displayFooter: true,
 
@@ -35,7 +37,7 @@ export default hopeTheme({
     },
 
     /**
-     * Chinese locale config
+     * Spanish locale config
      */
     "/es/": {
       // navbar
@@ -45,6 +47,8 @@ export default hopeTheme({
       sidebar: esSidebar,
 
       footer: "Footer",
+      pageInfo: false,
+      editLink: false,
 
       displayFooter: true,
 
@@ -141,13 +145,13 @@ export default hopeTheme({
   plugins: {
     // Note: This is for testing ONLY!
     // You MUST generate and use your own comment service in production.
-    comment: {
-      provider: "Giscus",
-      repo: "vuepress-theme-hope/giscus-discussions",
-      repoId: "R_kgDOG_Pt2A",
-      category: "Announcements",
-      categoryId: "DIC_kwDOG_Pt2M4COD69",
-    },
+    // comment: {
+    //   provider: "Giscus",
+    //   repo: "vuepress-theme-hope/giscus-discussions",
+    //   repoId: "R_kgDOG_Pt2A",
+    //   category: "Announcements",
+    //   categoryId: "DIC_kwDOG_Pt2M4COD69",
+    // },
 
     components: {
       components: ["Badge", "VPCard"],

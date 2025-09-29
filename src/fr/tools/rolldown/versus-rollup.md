@@ -1,20 +1,4 @@
----
-title: Rolldown vs Rollup
-date: 2025-09-25
-icon: atom
-index: true
-comment: false
-breadcrumb: false
-pageInfo: false
-editLink: false
-lastUpdated: false
-prev: false
-next: false
-category:
-  - Tools
----
-
-# Rolldown vs Rollup : Faut-il se préparer à la nouvelle génération de bundlers ?
+# Rolldown vs Rollup
 
 Si vous travaillez dans l'écosystème JavaScript, le nom **Rollup** vous est familier. C'est le bundler éprouvé, réputé pour sa gestion propre des modules ES (ESM) et son fameux "tree-shaking". Mais un nouveau nom commence à faire du bruit : **Rolldown**. Écrit en Rust et porté par l'équipe de Vite, il promet de révolutionner nos temps de build.
 

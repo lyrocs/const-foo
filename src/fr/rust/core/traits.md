@@ -1,33 +1,4 @@
----
-# This is the title of the article
-title: Traits
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 4
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-26
-# A page can have multiple categories
-category:
-  - Rust
-# A page can have multiple tags
-tag:
-  - Rust
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
-
-# Les Traits : Comment Rust Réalise le Polymorphisme
+# Les Traits
 
 Dans l'univers de la programmation orientée objet, les interfaces sont un concept fondamental pour créer du code flexible et réutilisable. Rust, avec son approche unique, propose un système encore plus puissant et expressif : les **traits**. Ces derniers ne se contentent pas de remplacer les interfaces traditionnelles, ils redéfinissent complètement la façon dont nous pensons le polymorphisme et l'abstraction en programmation système.
 

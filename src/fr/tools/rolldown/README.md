@@ -1,20 +1,4 @@
----
-title: Rolldown
-date: 2025-09-25
-icon: atom
-index: true
-comment: false
-breadcrumb: false
-pageInfo: false
-editLink: false
-lastUpdated: false
-prev: false
-next: false
-category:
-  - Tools
----
-
-# Rolldown : Le Bundler JavaScript en Rust qui va Accélérer Votre Quotidien
+# Rolldown
 
 Vous trouvez que les builds de vos projets web sont trop lents ? L'équipe de Vite aussi. C'est pourquoi elle développe **Rolldown**, un nouveau bundler de modules JavaScript écrit en Rust, conçu pour être le futur moteur de Vite et, potentiellement, de tout l'écosystème JavaScript.
 

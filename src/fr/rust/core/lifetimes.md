@@ -1,33 +1,4 @@
----
-# This is the title of the article
-title: Lifetimes
-# This is the icon of the page
-# icon: atom
-# This control sidebar order
-order: 5
-# Set author
-author: Lyrocs
-# Set writing time
-date: 2025-09-26
-# A page can have multiple categories
-category:
-  - Rust
-# A page can have multiple tags
-tag:
-  - Rust
-  - Guide
-# this page is sticky in article list
-sticky: true
-# this page will appear in starred articles
-star: true
-comment: false
-# You can customize footer content
-footer: Footer content for test
-# You can customize copyright content
-copyright: No Copyright
----
-
-# Les Durées de Vie ('Lifetimes') : Comprendre le Super-pouvoir du Compilateur
+# Lifetimes
 
 Les lifetimes sont souvent considérés comme l'aspect le plus déroutant de Rust, celui qui fait fuir les débutants et donne des sueurs froides aux développeurs expérimentés. Pourtant, une fois comprises, elles révèlent leur véritable nature : un super-pouvoir qui permet au compilateur de garantir la sécurité mémoire sans garbage collector. Cet article démystifie ce concept unique et vous montrera pourquoi les lifetimes sont en réalité vos meilleures alliées.
 
