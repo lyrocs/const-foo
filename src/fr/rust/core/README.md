@@ -43,3 +43,9 @@ Une plongée dans le système de traits, l'équivalent des interfaces dans d'aut
 Cet article démystifie l'un des concepts les plus uniques (et redoutés) de Rust. Il explique, avec des exemples simples, comment les annotations de durée de vie permettent au compilateur de garantir la validité des références et d'empêcher les dangling pointers sans avoir besoin d'un garbage collector.
 
 - [Voir l'article](./lifetimes.md)
+
+## no_std : Rust sans la Bibliothèque Standard
+
+Découvrez comment utiliser Rust dans des environnements sans système d'exploitation : microcontrôleurs, noyaux d'OS, systèmes embarqués. Cet article explique comment programmer avec uniquement `core` et `alloc`, gérer les paniques, et créer des applications ultra-légères pour le bare-metal.
+
+- [Voir l'article](./no-std.md)
